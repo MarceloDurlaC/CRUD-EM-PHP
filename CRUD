@@ -1,0 +1,25 @@
+<?php
+  // Conexão com o banco de dados
+  $host = "localhost";
+  $user = "root";
+  $password = "";
+  $dbname = "test";
+  $conexao = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+
+  // Inserir dados
+  if(isset($_POST['inserir'])){
+    $nome = $_POST['nome'];
+    $cpf = $_POST['cpf'];
+    $email = $_POST['email'];
+
+    $sql = "INSERT INTO usuarios (nome, cpf, email) VALUES (:nome, :cpf, :email)";
+    $stmt = $conexao->prepare($sql);
+
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':email', $email);
+
+    $stmt->execute();
+  }
+
+?>
